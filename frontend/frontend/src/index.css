@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-primary: #0f1117;
+  --bg-card: #1a1d27;
+  --bg-card-hover: #21253a;
+  --green: #00c853;
+  --red: #ff3d57;
+  --text: #e2e8f0;
+  --text-muted: #64748b;
+  --border: #2d3149;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text);
+  font-family: "Inter", sans-serif;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.badge-green {
+  background: rgba(0, 200, 83, 0.15);
+  color: var(--green);
+  border: 1px solid rgba(0, 200, 83, 0.3);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-red {
+  background: rgba(255, 61, 87, 0.15);
+  color: var(--red);
+  border: 1px solid rgba(255, 61, 87, 0.3);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.btn {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-green {
+  background: var(--green);
+  color: #000;
+}
+
+.btn-green:hover {
+  background: #00a844;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-outline:hover {
+  background: var(--bg-card-hover);
+}
+
+.btn-active {
+  background: rgba(0, 200, 83, 0.15);
+  color: var(--green);
+  border: 1px solid rgba(0, 200, 83, 0.3);
+}
