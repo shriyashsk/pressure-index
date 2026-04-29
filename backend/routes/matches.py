@@ -35,7 +35,7 @@ def list_matches(
     query = text(f"""
         SELECT DISTINCT match_id, format, match_date,
                team_batting, team_bowling
-        FROM deliveries
+        FROM delivery_features_slim
         WHERE {where}
         ORDER BY match_date DESC
         LIMIT :limit OFFSET :offset
@@ -56,16 +56,15 @@ def get_match_timeline(
     db       : Session = Depends(get_db)
 ):
     query = text("""
-        SELECT d.over, d.ball, d.batter, d.bowler,
-               d.runs_scored, d.is_wicket, d.wicket_kind,
-               d.total_runs_so_far, d.wickets_fallen,
-               df.pressure_index, df.crr, df.rrr,
-               df.phase, df.wickets_remaining
-        FROM deliveries d
-        JOIN delivery_features df ON d.id = df.id
-        WHERE d.match_id = :match_id
-          AND d.innings  = :innings
-        ORDER BY d.over, d.ball
+        SELECT over, ball, batter, bowler,
+               runs_scored, is_wicket, wicket_kind,
+               total_runs_so_far,
+               pressure_index, crr, rrr,
+               phase, wickets_remaining
+        FROM delivery_features_slim
+        WHERE match_id = :match_id
+          AND innings  = :innings
+        ORDER BY over, ball
     """)
 
     rows = db.execute(query, {
@@ -78,7 +77,6 @@ def get_match_timeline(
 
     deliveries = [dict(r._mapping) for r in rows]
 
-    # Find peak pressure moments
     sorted_by_pressure = sorted(
         deliveries,
         key=lambda x: x["pressure_index"] or 0,
@@ -87,9 +85,9 @@ def get_match_timeline(
     peak_moments = sorted_by_pressure[:5]
 
     return {
-        "match_id"     : match_id,
-        "innings"      : innings,
-        "total_balls"  : len(deliveries),
+        "match_id"              : match_id,
+        "innings"               : innings,
+        "total_balls"           : len(deliveries),
         "peak_pressure_moments" : peak_moments,
-        "timeline"     : deliveries,
+        "timeline"              : deliveries,
     }
