@@ -13,8 +13,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "https://*.vercel.app",        # Vercel frontend
-        "https://*.railway.app",       # Railway
+        "https://lovely-monstera-f0f583.netlify.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
